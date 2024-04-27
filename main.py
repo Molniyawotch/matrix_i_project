@@ -1,5 +1,13 @@
+"""
+Аналитика данных на английском
+"""
+import os
+
 # task 1
 # matrix
+"""
+Матрица - список состоящий из списков
+"""
 matrix = [
     [15, 2, 7, 8, 9, 10, 3, 5, 14, 11],
     [6, 12, 18, 4, 3, 9, 17, 11, 6, 2],
@@ -16,8 +24,11 @@ matrix = [
 
 # functions
 
-
-def sum_of_numbers(matrix: list[list[int]]):
+def sum_of_numbers(matrix: list[list[int]]) -> dict:
+    """
+    Функция принимает на вход матрицу и возвращает словарь
+    (сумма чисел, самое большое и маленькое число, мода числа)
+    """
     _sum = 0
     _max = _min = matrix[0][0]
     mode = [0, 0]
@@ -36,11 +47,15 @@ def sum_of_numbers(matrix: list[list[int]]):
             if mode[1] < frequencies[j]:
                 mode[0] = j
                 mode[1] = frequencies[j]
-    else:
-        return {"sum": _sum, "max": _max, "min": _min, "mode": mode}
+
+    return {"sum": _sum, "max": _max, "min": _min, "mode": mode}
 
 
 # task 2
+# titles
+"""
+Это список из словарей содержащих информацию о сериалах
+"""
 serials_db = [{"title": "Chronicles of the Galaxy", "genre": "adventure", "seasons": 5, "rating": 8},
               {"title": "Mystery Island", "genre": "fantasy", "seasons": 3, "rating": 9},
               {"title": "Epic Quest", "genre": "fantasy", "seasons": 4, "rating": 7},
@@ -50,7 +65,11 @@ serials_db = [{"title": "Chronicles of the Galaxy", "genre": "adventure", "seaso
               {"title": "Comedy Central", "genre": "comedy", "seasons": 7, "rating": 9}]
 
 
+# functions
 def find_by_genre(genre: str):
+    """
+    Функция для поиска сериалов по жанру
+    """
     search = []
     for serial in serials_db:
         if serial["genre"] == genre:
@@ -59,6 +78,9 @@ def find_by_genre(genre: str):
 
 
 def find_by_rating(rating: int):
+    """
+    Функция для поиска сериалов по рейтингу
+    """
     search = []
     for serial in serials_db:
         if serial["rating"] == rating:
@@ -67,6 +89,9 @@ def find_by_rating(rating: int):
 
 
 def display_info(shows):
+    """
+    Процедура которая выводит информацию о сериалах
+    """
     for show in shows:
         print(show["title"])
         print(f'Genre - {show["genre"]}')
@@ -78,12 +103,25 @@ def display_info(shows):
 if __name__ == '__main__':
     # a = sum_of_numbers(matrix)
     # print(a)
-    variant = int(input("1 - поиск по жанру, 2 - поиск по рейтингу\n"))
-    if variant == 1:
-        chose = input("Жанр: ").lower()
-        b = find_by_genre(chose)
-    if variant == 2:
-        chose = int(input("Рейтинг: ").lower())
-        b = find_by_rating(chose)
-
-    display_info(b)
+    b = serials_db
+    variant = 3
+    while variant != 10:
+        os.system("cls")
+        if variant == 1:
+            chose = input("Жанр: ").lower()
+            b = find_by_genre(chose)
+            display_info(b)
+        elif variant == 2:
+            chose = int(input("Рейтинг: ").lower())
+            b = find_by_rating(chose)
+            display_info(b)
+        elif variant == 3:
+            b = serials_db
+            display_info(b)
+        elif variant == 10:
+            print("Выход из программы...")
+            break
+        else:
+            variant = 3
+            continue
+        variant = int(input("1 - поиск по жанру,\n2 - поиск по рейтингу,\n3 - все тайтлы,\n10 - выход\n"))
